@@ -7,9 +7,17 @@ input.onButtonPressed(Button.A, function () {
     亂數 = randint(0, 15)
     PA = true
 })
+function doSomething (DELAY: number) {
+    for (let index = 0; index <= 15; index++) {
+        編號點燈(list2[index])
+        basic.pause(DELAY)
+        編號關燈(list2[index])
+    }
+}
 input.onButtonPressed(Button.B, function () {
     basic.clearScreen()
     PA = false
+    DELAY = 0
 })
 function 編號點燈 (燈號2: number) {
     LX = 燈號2 % 5
@@ -20,7 +28,10 @@ let PA = false
 let 亂數 = 0
 let LY = 0
 let LX = 0
-let list2 = [
+let list2: number[] = []
+let DELAY = 0
+DELAY = 0
+list2 = [
 0,
 1,
 2,
@@ -39,6 +50,7 @@ let list2 = [
 5
 ]
 basic.forever(function () {
+    DELAY += 10
     if (PA) {
         for (let index = 0; index <= 亂數; index++) {
             編號點燈(list2[index])
@@ -47,10 +59,6 @@ basic.forever(function () {
         }
         編號點燈(list2[亂數])
     } else {
-        for (let index = 0; index <= 15; index++) {
-            編號點燈(list2[index])
-            basic.pause(100)
-            編號關燈(list2[index])
-        }
+        doSomething(DELAY)
     }
 })
